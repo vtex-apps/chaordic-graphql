@@ -63,8 +63,8 @@ export default class Search extends ExternalClient {
   private get (url: string, config?: RequestConfig) {
     const params = {
       ...config && config.params,
-      apikey: this.apiKey,
-      secretkey: this.secretKey,
+      apiKey: this.apiKey,
+      secretKey: this.secretKey,
     }
 
     return this.http.get(url, {

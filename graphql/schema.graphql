@@ -152,6 +152,134 @@ type ChaordicSearchAutoCompletePopularOutput {
 	queries: [ChaordicSearchAutoCompleteQueries]
 }
 
+type ChaordicRecommendationsResult {
+  top: [ChaordicRecommendations]!
+  middle: [ChaordicRecommendations]!
+  bottom: [ChaordicRecommendations]!
+}
+
+type ChaordicRecommendations {
+  id: String!
+  title: String!
+  name: String!
+  feature: String!
+  impressionUrl: String!
+  subtitle: String
+  context: String!
+  displays: [ChaordicRecommendationsDisplays]!
+}
+
+type ChaordicProductPageRecommendations {
+  context: String!
+  displays: [ChaordicRecommendationsDisplays]!
+}
+
+type ChaordicRecommendationsDisplays {
+  references: [ChaordicProductPageRecommendationsProduct]!
+  recommendations: [ChaordicProductPageRecommendationsProduct]!
+}
+
+type ChaordicRecommendationsProduct {
+  id: String!
+  name: String!
+  price: Float!
+  oldPrice: Float
+  url: String!
+  images: ChaordicRecommendationsProductImages
+  brand: String
+  installment: ChaordicRecommendationsProductInstallment
+  status: String
+  categories: [ChaordicRecommendationsProductCategory]
+  details: ChaordicRecommendationsProductDetails
+  skus: [ChaordicRecommendationsSku]!
+  trackingUrl: String
+}
+
+type ChaordicProductPageRecommendationsProduct {
+  id: String!
+  name: String!
+  price: Float!
+  oldPrice: Float
+  url: String!
+  images: ChaordicRecommendationsProductImages
+  brand: String
+  installment: ChaordicProductPageRecommendationsProductInstallment
+  status: String
+  categories: [ChaordicRecommendationsProductCategory]
+  details: ChaordicRecommendationsProductDetails
+  skus: [ChaordicRecommendationsSku]!
+  trackingUrl: String
+}
+
+type ChaordicRecommendationsProductImages {
+  default: String
+  template: String
+  # TODO: Rename these fields for valid graphql identifiers, e.g. small, medium, large.
+  # _200x200: String
+  # _400x400: String
+  # _1000x1000: String
+}
+
+type ChaordicRecommendationsProductInstallment {
+	price: Float
+	count: Int
+}
+
+type ChaordicProductPageRecommendationsProductInstallment {
+	price: Float
+	count: Int
+}
+
+type ChaordicRecommendationsProductCategory {
+	id: String!
+	name: String!
+  parents: [String]
+}
+
+type ChaordicRecommendationsProductDetails {
+  Tamanho: [String]
+  Publico: [String]
+  InformacoesImportantes: [String]
+  brand: String
+  noiteBeleza: String
+  blackWeek: String
+  freeShipping: String
+}
+
+type ChaordicRecommendationsSku {
+  status: String!
+  url: String!
+  name: String!
+  sku: String!
+  images: ChaordicRecommendationsProductImages
+  installment: ChaordicRecommendationsProductInstallment
+  price: Float
+  stock: Int
+  details: ChaordicRecommendationsSkuDetail
+  specs: ChaordicRecommendationsSkuSpecs
+}
+
+type ChaordicRecommendationsProductSkus {
+  status: String!
+  url: String!
+  name: String!
+  images: ChaordicRecommendationsProductImages
+  installment: ChaordicRecommendationsProductInstallment
+  price: Float
+  stock: Int
+  details: ChaordicRecommendationsSkuDetail
+  sku: String
+  specs: ChaordicRecommendationsSkuSpecs
+}
+
+type ChaordicRecommendationsSkuDetail {
+  referenceId: String
+}
+
+type ChaordicRecommendationsSkuSpecs {
+  Cores: String
+}
+
 type Query {
   searchProducts(
     terms: String = "",

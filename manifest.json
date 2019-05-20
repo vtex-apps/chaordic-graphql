@@ -9,6 +9,12 @@
   "credentialType": "absolute",
   "policies": [
     {
+      "name": "vbase-read-write",
+      "attrs": {
+        "bucket": "secret_keys"
+      }
+    },
+    {
       "name": "outbound-access",
       "attrs": {
         "host": "{{account}}.neemu.com",
