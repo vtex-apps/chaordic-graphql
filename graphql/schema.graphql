@@ -1,0 +1,185 @@
+type ChaordicSearchOutput {
+	banners: [ChaordicSearchBanner]
+	quickFilters: [ChaordicSearchQuickFilter]
+	products: [ChaordicSearchProduct]
+	pagination: ChaordicSearchPagination
+	filters: [ChaordicSearchFilters]
+	queries: ChaordicSearchQueries
+	requestId: String
+	searchId: String
+	size: Int
+	queryType: String
+	link: String
+}
+
+type ChaordicSearchBanner {
+	position: String
+	content: String
+}
+
+type ChaordicSearchQuickFilter {
+	name: String
+	image: String
+}
+
+type ChaordicSearchProduct {
+  	cacheId: ID
+	cId: String
+	clickUrl: String
+	collectInfo: ChaordicSearchProductCollectionInfo
+	details: ChaordicSearchProductDetails
+	iId: Int
+	id: String
+	productId: String
+	images: ChaordicSearchProductImages
+	installment: ChaordicSearchProductInstallment
+	name: String
+	oldPrice: Float
+	price: Float
+	status: String
+	url: String
+}
+
+type ChaordicSearchProductCollectionInfo {
+	productId: String
+	skuList: [String]
+}
+
+#
+# Fields: Publico, InformacoesImportantes, FamiliaOlfativa, Video
+# Problem: Missing because accent.
+#
+
+type ChaordicSearchProductDetails {
+	referenceId: [String]
+	Publico: [String]
+	brand: [String]
+	Tamanho: [String]
+	InformacoesImportantes: [String]
+	FamiliaOlfativa: [String]
+	noiteBeleza: [String]
+	gid: [String]
+	blackWeek: [String]
+	freeShipping: [String]
+	yourviews: [String]
+	Video: [String]
+	clusterHighlights: [ChaordicSearchProductDetailsHighLight]
+}
+
+type ChaordicSearchProductDetailsHighLight {
+	name: String
+}
+
+type ChaordicSearchProductImages {
+	default: String
+}
+
+type ChaordicSearchProductInstallment {
+	price: Float
+	count: Int
+}
+
+type ChaordicSearchPagination {
+	first: String
+	next: String
+	last: String
+}
+
+type ChaordicSearchFilters {
+	attribute: String
+	fType: Int
+	id: Int
+	type: String
+	values: [ChaordicSearchFiltersValues]
+}
+
+type ChaordicSearchFiltersValues {
+	label: String
+    size: Int
+    id: Int
+    applyLink: String
+    unN: String
+    unityId: Int
+    min: ChaordicSearchFiltersValuesMin
+    max: ChaordicSearchFiltersValuesMax
+    idO: String
+	filters: [ChaordicSearchFiltersValuesFilters]
+}
+
+type ChaordicSearchFiltersValuesMin {
+	value: Float
+	unity: String
+	minN: Float
+}
+
+type ChaordicSearchFiltersValuesMax {
+	value: Float
+	unity: String
+	maxN: Float
+}
+
+type ChaordicSearchFiltersValuesFilters {
+	applyLink: String
+	filters: [ChaordicSearchFiltersValuesFilters]
+	id: Int
+	idO: String
+	label: String
+	size: Int
+}
+
+type ChaordicSearchQueries {
+	normalized: String
+	original: String
+	processed: String
+	queryType: String
+}
+
+type ChaordicSearchAutoCompleteOutput {
+	requestId: String
+	searchId: String
+	queries: [ChaordicSearchAutoCompleteQueries]
+	products: [ChaordicSearchProduct]
+}
+
+type ChaordicSearchAutoCompleteQueries {
+	query: String
+	link: String
+}
+
+type ChaordicSearchAutoCompletePopularOutput {
+	requestId: String
+	searchId: String
+	queries: [ChaordicSearchAutoCompleteQueries]
+}
+
+type Query {
+  searchProducts(
+    terms: String = "",
+    page: Int = 1,
+    sortBy: String = "",
+    filter: String = "",
+    resultsPerPage: Int = ""
+  ): ChaordicSearchOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+  searchProductsAutoComplete(
+    terms: String = ""
+  ): ChaordicSearchAutoCompleteOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+  searchProductsAutoCompletePopular: ChaordicSearchAutoCompletePopularOutput! @withSecretKeys
+
+  chaordicRecommendations(
+    chaordicBrowserId: String!,
+    pathName: String!,
+    source: String!,
+    name: String,
+    productId: String
+  ): ChaordicRecommendationsResult! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+  chaordicProductPageRecommendations(
+    chaordicBrowserId: String!,
+    productId: String!,
+    type: String,
+    size: Int
+  ): ChaordicProductPageRecommendations! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+}
+
+type Mutation {
+  ChaordicImpression(impressionUrl: String!): Boolean @withSecretKeys
+}

@@ -1,0 +1,32 @@
+{
+  "vendor": "vtex",
+  "name": "chaordic-graphql",
+  "version": "0.0.1",
+  "builders": {
+    "graphql": "1.x",
+    "node": "4.x"
+  },
+  "credentialType": "absolute",
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "{{account}}.neemu.com",
+        "path": "/searchapi/v3/*"
+      }
+    },
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "recs.chaordicsystems.com",
+        "path": "/v0/*"
+      }
+    }
+  ],
+  "mustUpdateAt": "2022-09-05",
+  "categories": [],
+  "settingsSchema": {},
+  "scripts": {
+    "postreleasy": "bash publish.sh"
+  }
+}
