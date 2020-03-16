@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "chaordic-graphql",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "builders": {
     "graphql": "1.x",
     "node": "4.x",
@@ -18,8 +18,8 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "{{account}}.neemu.com",
-        "path": "/searchapi/v3/*"
+        "host": "api.linximpulse.com",
+        "path": "engage/search/v3/*"
       }
     },
     {
