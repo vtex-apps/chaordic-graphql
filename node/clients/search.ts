@@ -25,7 +25,7 @@ export default class Search extends ExternalClient {
   public secretKey?: string
 
   constructor(context: IOContext, options?: InstanceOptions) {
-    super(`http://${context.account}.neemu.com/searchapi/v3`, context, {
+    super(`https://api.linximpulse.com/engage/search/v3`, context, {
       ...options,
       headers: {
         'Accept':'application/json',

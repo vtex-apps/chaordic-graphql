@@ -18,8 +18,8 @@
     {
       "name": "outbound-access",
       "attrs": {
-        "host": "{{account}}.neemu.com",
-        "path": "/searchapi/v3/*"
+        "host": "api.linximpulse.com",
+        "path": "engage/search/v3/*"
       }
     },
     {

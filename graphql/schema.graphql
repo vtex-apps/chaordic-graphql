@@ -1,311 +1,41 @@
-type ChaordicSearchOutput {
-	banners: [ChaordicSearchBanner]
-	quickFilters: [ChaordicSearchQuickFilter]
-	products: [ChaordicSearchProduct]
-	pagination: ChaordicSearchPagination
-	filters: [ChaordicSearchFilters]
-	queries: ChaordicSearchQueries
-	requestId: String
-	searchId: String
-	size: Int
-	queryType: String
-	link: String
-}
-
-type ChaordicSearchBanner {
-	position: String
-	content: String
-}
-
-type ChaordicSearchQuickFilter {
-	name: String
-	image: String
-}
-
-type ChaordicSearchProduct {
-  	cacheId: ID
-	cId: String
-	clickUrl: String
-	collectInfo: ChaordicSearchProductCollectionInfo
-	details: ChaordicSearchProductDetails
-	iId: Int
-	id: String
-	productId: String
-	images: ChaordicSearchProductImages
-	installment: ChaordicSearchProductInstallment
-	name: String
-	oldPrice: Float
-	price: Float
-	status: String
-	url: String
-}
-
-type ChaordicSearchProductCollectionInfo {
-	productId: String
-	skuList: [String]
-}
-
-#
-# Fields: Publico, InformacoesImportantes, FamiliaOlfativa, Video
-# Problem: Missing because accent.
-#
-
-type ChaordicSearchProductDetails {
-	referenceId: [String]
-	Publico: [String]
-	brand: [String]
-	Tamanho: [String]
-	InformacoesImportantes: [String]
-	FamiliaOlfativa: [String]
-	noiteBeleza: [String]
-	gid: [String]
-	blackWeek: [String]
-	freeShipping: [String]
-	yourviews: [String]
-	Video: [String]
-	clusterHighlights: [ChaordicSearchProductDetailsHighLight]
-}
-
-type ChaordicSearchProductDetailsHighLight {
-	name: String
-}
-
-type ChaordicSearchProductImages {
-	default: String
-}
-
-type ChaordicSearchProductInstallment {
-	price: Float
-	count: Int
-}
-
-type ChaordicSearchPagination {
-	first: String
-	next: String
-	last: String
-}
-
-type ChaordicSearchFilters {
-	attribute: String
-	fType: Int
-	id: Int
-	type: String
-	values: [ChaordicSearchFiltersValues]
-}
-
-type ChaordicSearchFiltersValues {
-	label: String
-    size: Int
-    id: Int
-    applyLink: String
-    unN: String
-    unityId: Int
-    min: ChaordicSearchFiltersValuesMin
-    max: ChaordicSearchFiltersValuesMax
-    idO: String
-	filters: [ChaordicSearchFiltersValuesFilters]
-}
-
-type ChaordicSearchFiltersValuesMin {
-	value: Float
-	unity: String
-	minN: Float
-}
-
-type ChaordicSearchFiltersValuesMax {
-	value: Float
-	unity: String
-	maxN: Float
-}
-
-type ChaordicSearchFiltersValuesFilters {
-	applyLink: String
-	filters: [ChaordicSearchFiltersValuesFilters]
-	id: Int
-	idO: String
-	label: String
-	size: Int
-}
-
-type ChaordicSearchQueries {
-	normalized: String
-	original: String
-	processed: String
-	queryType: String
-}
-
-type ChaordicSearchAutoCompleteOutput {
-	requestId: String
-	searchId: String
-	queries: [ChaordicSearchAutoCompleteQueries]
-	products: [ChaordicSearchProduct]
-}
-
-type ChaordicSearchAutoCompleteQueries {
-	query: String
-	link: String
-}
-
-type ChaordicSearchAutoCompletePopularOutput {
-	requestId: String
-	searchId: String
-	queries: [ChaordicSearchAutoCompleteQueries]
-}
-
-type ChaordicRecommendationsResult {
-  top: [ChaordicRecommendations]!
-  middle: [ChaordicRecommendations]!
-  bottom: [ChaordicRecommendations]!
-}
-
-type ChaordicRecommendations {
-  id: String!
-  title: String!
-  name: String!
-  feature: String!
-  impressionUrl: String!
-  subtitle: String
-  context: String!
-  displays: [ChaordicRecommendationsDisplays]!
-}
-
-type ChaordicProductPageRecommendations {
-  context: String!
-  displays: [ChaordicRecommendationsDisplays]!
-}
-
-type ChaordicRecommendationsDisplays {
-  references: [ChaordicProductPageRecommendationsProduct]!
-  recommendations: [ChaordicProductPageRecommendationsProduct]!
-}
-
-type ChaordicRecommendationsProduct {
-  id: String!
-  name: String!
-  price: Float!
-  oldPrice: Float
-  url: String!
-  images: ChaordicRecommendationsProductImages
-  brand: String
-  installment: ChaordicRecommendationsProductInstallment
-  status: String
-  categories: [ChaordicRecommendationsProductCategory]
-  details: ChaordicRecommendationsProductDetails
-  skus: [ChaordicRecommendationsSku]!
-  trackingUrl: String
-}
-
-type ChaordicProductPageRecommendationsProduct {
-  id: String!
-  name: String!
-  price: Float!
-  oldPrice: Float
-  url: String!
-  images: ChaordicRecommendationsProductImages
-  brand: String
-  installment: ChaordicProductPageRecommendationsProductInstallment
-  status: String
-  categories: [ChaordicRecommendationsProductCategory]
-  details: ChaordicRecommendationsProductDetails
-  skus: [ChaordicRecommendationsSku]!
-  trackingUrl: String
-}
-
-type ChaordicRecommendationsProductImages {
-  default: String
-  template: String
-  # TODO: Rename these fields for valid graphql identifiers, e.g. small, medium, large.
-  # _200x200: String
-  # _400x400: String
-  # _1000x1000: String
-}
-
-type ChaordicRecommendationsProductInstallment {
-	price: Float
-	count: Int
-}
-
-type ChaordicProductPageRecommendationsProductInstallment {
-	price: Float
-	count: Int
-}
-
-type ChaordicRecommendationsProductCategory {
-	id: String!
-	name: String!
-  parents: [String]
-}
-
-type ChaordicRecommendationsProductDetails {
-  Tamanho: [String]
-  Publico: [String]
-  InformacoesImportantes: [String]
-  brand: String
-  noiteBeleza: String
-  blackWeek: String
-  freeShipping: String
-}
-
-type ChaordicRecommendationsSku {
-  status: String!
-  url: String!
-  name: String!
-  sku: String!
-  images: ChaordicRecommendationsProductImages
-  installment: ChaordicRecommendationsProductInstallment
-  price: Float
-  stock: Int
-  details: ChaordicRecommendationsSkuDetail
-  specs: ChaordicRecommendationsSkuSpecs
-}
-
-type ChaordicRecommendationsProductSkus {
-  status: String!
-  url: String!
-  name: String!
-  images: ChaordicRecommendationsProductImages
-  installment: ChaordicRecommendationsProductInstallment
-  price: Float
-  stock: Int
-  details: ChaordicRecommendationsSkuDetail
-  sku: String
-  specs: ChaordicRecommendationsSkuSpecs
-}
-
-type ChaordicRecommendationsSkuDetail {
-  referenceId: String
-}
-
-type ChaordicRecommendationsSkuSpecs {
-  Cores: String
-}
-
 type Query {
   searchProducts(
-    terms: String = "",
-    page: Int = 1,
-    sortBy: String = "",
-    filter: String = "",
+    terms: String = ""
+    page: Int = 1
+    sortBy: String = ""
+    filter: String = ""
     resultsPerPage: Int = ""
-  ): ChaordicSearchOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+  ): ChaordicSearchOutput!
+    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @withSecretKeys
+
   searchProductsAutoComplete(
     terms: String = ""
-  ): ChaordicSearchAutoCompleteOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
-  searchProductsAutoCompletePopular: ChaordicSearchAutoCompletePopularOutput! @withSecretKeys
+  ): ChaordicSearchAutoCompleteOutput!
+    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @withSecretKeys
+
+  searchProductsAutoCompletePopular: ChaordicSearchAutoCompletePopularOutput!
+    @withSecretKeys
 
   chaordicRecommendations(
-    chaordicBrowserId: String!,
-    pathName: String!,
-    source: String!,
-    name: String,
+    chaordicBrowserId: String!
+    pathName: String!
+    source: String!
+    name: String
     productId: String
-  ): ChaordicRecommendationsResult! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+  ): ChaordicRecommendationsResult!
+    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @withSecretKeys
+
   chaordicProductPageRecommendations(
-    chaordicBrowserId: String!,
-    productId: String!,
-    type: String,
+    chaordicBrowserId: String!
+    productId: String!
+    type: String
     size: Int
-  ): ChaordicProductPageRecommendations! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+  ): ChaordicProductPageRecommendations!
+    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @withSecretKeys
 }
 
 type Mutation {
