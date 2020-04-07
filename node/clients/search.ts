@@ -28,7 +28,7 @@ export default class Search extends ExternalClient {
     super(`https://api.linximpulse.com/engage/search/v3`, context, {
       ...options,
       headers: {
-        'Accept':'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
     })
@@ -36,23 +36,23 @@ export default class Search extends ExternalClient {
 
   // This is initialized by the withSecretKeys directive
   public init(secretKeys: SecretKeys) {
-    this.apiKey = secretKeys.apiKey
-    this.secretKey = secretKeys.secretKey
+    this.apiKey = secretKeys?.apiKey
+    this.secretKey = decodeURIComponent(secretKeys?.secretKey)
   }
 
-  public search (params: SearchParams): Promise<any> {
+  public search(params: SearchParams): Promise<any> {
     return this.get(this.routes.search, { metric: 'chaordic-search', params })
   }
 
-  public autocomplete (params: AutocompleteParams): Promise<any> {
+  public autocomplete(params: AutocompleteParams): Promise<any> {
     return this.get(this.routes.autocomplete, { metric: 'chaordic-autocomplete', params })
   }
 
-  public popular (): Promise<any> {
+  public popular(): Promise<any> {
     return this.get(this.routes.popular, { metric: 'chaordic-popular' })
   }
 
-  private get routes () {
+  private get routes() {
     return {
       autocomplete: '/autocompletes',
       popular: '/autocompletes/popular',
@@ -60,11 +60,15 @@ export default class Search extends ExternalClient {
     }
   }
 
-  private get (url: string, config?: RequestConfig) {
+  private get(url: string, config?: RequestConfig) {
     const params = {
       ...config && config.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
+      ...(!this.context.production && {
+        dummy: true,
+        homologation: true
+      })
     }
 
     return this.http.get(url, {

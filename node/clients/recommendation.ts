@@ -30,7 +30,7 @@ export default class Recommendation extends ExternalClient {
     super('http://recs.chaordicsystems.com/v0', context, {
       ...options,
       headers: {
-        'Accept':'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
         'x-vtex-use-https': 'true',
       },
@@ -39,33 +39,38 @@ export default class Recommendation extends ExternalClient {
 
   // This is initialized by the withSecretKeys directive
   public init(secretKeys: SecretKeys) {
-    this.apiKey = secretKeys.apiKey
-    this.secretKey = secretKeys.secretKey
+    this.apiKey = secretKeys?.apiKey
+    this.secretKey = decodeURIComponent(secretKeys?.secretKey)
   }
 
-  public recommendations (params: RecommendationParams): Promise<any> {
+  public recommendations(params: RecommendationParams): Promise<any> {
     return this.get(this.routes.recommendations, { metric: 'chaordic-recommendations', params })
   }
 
-  public productRecommendations (params: ProductRecommendationParams): Promise<any> {
+  public productRecommendations(params: ProductRecommendationParams): Promise<any> {
     return this.get(this.routes.recommendations, { metric: 'chaordic-recommendations-product', params })
   }
 
-  public impression (impressionUrl: string): Promise<any> {
+  public impression(impressionUrl: string): Promise<any> {
     return this.get(impressionUrl, { metric: 'chaordic-recommendations-impression' })
   }
 
-  private get routes () {
+  private get routes() {
     return {
       recommendations: '/pages/recommendations/',
     }
   }
 
-  private get (url: string, config?: RequestConfig) {
+  private get(url: string, config?: RequestConfig) {
+
     const params = {
       ...config && config.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
+      ...(!this.context.production && {
+        dummy: true,
+        homologation: true,
+      })
     }
 
     return this.http.get(url, {

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Dummy and homologation params on Search and Recommendation
+### Fixed
+- SecretKeys decoding from VBase
 
 ## [0.0.3] - 2020-03-30
 ### Fixed
