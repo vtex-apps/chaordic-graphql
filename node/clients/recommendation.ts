@@ -62,7 +62,6 @@ export default class Recommendation extends ExternalClient {
   }
 
   private get(url: string, config?: RequestConfig) {
-    console.log(this.context)
 
     const params = {
       ...config && config.params,
