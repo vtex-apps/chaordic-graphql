@@ -65,7 +65,7 @@ export default class Search extends ExternalClient {
       ...config && config.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
-      ...(this.context.workspace !== 'master' && {
+      ...(!this.context.production && {
         dummy: true,
         homologation: true
       })

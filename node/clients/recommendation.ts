@@ -68,9 +68,9 @@ export default class Recommendation extends ExternalClient {
       ...config && config.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
-      ...(this.context.workspace !== 'master' && {
+      ...(!this.context.production && {
         dummy: true,
-        homologation: true
+        homologation: true,
       })
     }
 
