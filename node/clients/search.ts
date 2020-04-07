@@ -36,8 +36,8 @@ export default class Search extends ExternalClient {
 
   // This is initialized by the withSecretKeys directive
   public init(secretKeys: SecretKeys) {
-    this.apiKey = secretKeys.apiKey
-    this.secretKey = secretKeys.secretKey
+    this.apiKey = secretKeys?.apiKey
+    this.secretKey = decodeURIComponent(secretKeys?.secretKey)
   }
 
   public search (params: SearchParams): Promise<any> {
