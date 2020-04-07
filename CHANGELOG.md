@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Add dummy and homologation params
+- Dummy and homologation params on Search and Recommendation
 ### Fixed
-- Fix secretKeys encoding
+- SecretKeys decoding from VBase
 
 ## [0.0.3] - 2020-03-30
 ### Fixed
