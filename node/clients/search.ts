@@ -6,10 +6,12 @@ export interface SearchParams {
   resultsPerPage: number
   sortBy: string
   terms: string
+  salesChannel?: string
 }
 
 export interface AutocompleteParams {
   terms: string
+  salesChannel?: string
 }
 
 const treatedStatusCodes = [404, 302]
@@ -67,8 +69,8 @@ export default class Search extends ExternalClient {
       secretKey: this.secretKey,
       ...(!this.context.production && {
         dummy: true,
-        homologation: true
-      })
+        homologation: true,
+      }),
     }
 
     return this.http.get(url, {
