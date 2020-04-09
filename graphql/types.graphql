@@ -236,6 +236,7 @@ type ChaordicRecommendationsSku {
   images: ChaordicRecommendationsProductImages
   installment: ChaordicRecommendationsProductInstallment
   price: Float
+  oldPrice: Float
   stock: Int
   details: ChaordicRecommendationsSkuDetail
   specs: ChaordicRecommendationsSkuSpecs
@@ -248,6 +249,7 @@ type ChaordicRecommendationsProductSkus {
   images: ChaordicRecommendationsProductImages
   installment: ChaordicRecommendationsProductInstallment
   price: Float
+  oldPrice: Float
   stock: Int
   details: ChaordicRecommendationsSkuDetail
   sku: String
