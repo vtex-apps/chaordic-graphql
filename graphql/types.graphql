@@ -1,3 +1,11 @@
+scalar ChaordicSearchProductDetails
+
+scalar ChaordicRecommendationsSkuDetail
+
+scalar ChaordicRecommendationsSkuSpecs
+
+scalar ChaordicRecommendationsProductDetails
+
 type ChaordicSearchOutput {
   banners: [ChaordicSearchBanner]
   quickFilters: [ChaordicSearchQuickFilter]
@@ -49,22 +57,6 @@ type ChaordicSearchProductCollectionInfo {
 # Fields: Publico, InformacoesImportantes, FamiliaOlfativa, Video
 # Problem: Missing because accent.
 #
-
-type ChaordicSearchProductDetails {
-  referenceId: [String]
-  Publico: [String]
-  brand: [String]
-  Tamanho: [String]
-  InformacoesImportantes: [String]
-  FamiliaOlfativa: [String]
-  noiteBeleza: [String]
-  gid: [String]
-  blackWeek: [String]
-  freeShipping: [String]
-  yourviews: [String]
-  Video: [String]
-  clusterHighlights: [ChaordicSearchProductDetailsHighLight]
-}
 
 type ChaordicSearchProductDetailsHighLight {
   name: String
@@ -236,16 +228,6 @@ type ChaordicRecommendationsProductCategory {
   parents: [String]
 }
 
-type ChaordicRecommendationsProductDetails {
-  Tamanho: [String]
-  Publico: [String]
-  InformacoesImportantes: [String]
-  brand: String
-  noiteBeleza: String
-  blackWeek: String
-  freeShipping: String
-}
-
 type ChaordicRecommendationsSku {
   status: String!
   url: String!
@@ -254,6 +236,7 @@ type ChaordicRecommendationsSku {
   images: ChaordicRecommendationsProductImages
   installment: ChaordicRecommendationsProductInstallment
   price: Float
+  oldPrice: Float
   stock: Int
   details: ChaordicRecommendationsSkuDetail
   specs: ChaordicRecommendationsSkuSpecs
@@ -266,16 +249,9 @@ type ChaordicRecommendationsProductSkus {
   images: ChaordicRecommendationsProductImages
   installment: ChaordicRecommendationsProductInstallment
   price: Float
+  oldPrice: Float
   stock: Int
   details: ChaordicRecommendationsSkuDetail
   sku: String
   specs: ChaordicRecommendationsSkuSpecs
-}
-
-type ChaordicRecommendationsSkuDetail {
-  referenceId: String
-}
-
-type ChaordicRecommendationsSkuSpecs {
-  Cores: String
 }

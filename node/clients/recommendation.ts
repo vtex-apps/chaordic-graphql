@@ -4,6 +4,7 @@ export interface RecommendationParams {
   chaordicBrowserId?: string
   deviceId?: string
   name: string
+  salesChannel?: string
   pathName?: string
   productId: string
   productFormat?: string
@@ -13,6 +14,7 @@ export interface RecommendationParams {
 export interface ProductRecommendationParams {
   chaordicBrowserId?: string
   deviceId?: string
+  salesChannel?: string
   productId: string,
   size: number
   type: string,
@@ -70,7 +72,7 @@ export default class Recommendation extends ExternalClient {
       ...(!this.context.production && {
         dummy: true,
         homologation: true,
-      })
+      }),
     }
 
     return this.http.get(url, {

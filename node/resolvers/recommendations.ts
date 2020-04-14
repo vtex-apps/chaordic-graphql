@@ -2,12 +2,13 @@ import { ImpressionParams, ProductRecommendationParams, RecommendationParams } f
 
 export const queries = {
   chaordicProductPageRecommendations: async (_: any, args: ProductRecommendationParams, ctx: Context) => {
-    const {clients: {recommendation}} = ctx
+    const { clients: { recommendation } } = ctx
 
     const {
       chaordicBrowserId,
       productId,
       type,
+      salesChannel,
       size,
     } = args
 
@@ -15,6 +16,7 @@ export const queries = {
       deviceId: chaordicBrowserId,
       productFormat: 'complete',
       productId,
+      salesChannel,
       size: size || 10,
       type: type || 'BestSellers',
     }
@@ -25,7 +27,7 @@ export const queries = {
   },
 
   chaordicRecommendations: async (_: any, args: RecommendationParams, ctx: Context) => {
-    const {clients: {recommendation}} = ctx
+    const { clients: { recommendation } } = ctx
     const forwardedHost = ctx.get('x-forwarded-host')
 
     const {
@@ -34,6 +36,7 @@ export const queries = {
       source,
       name,
       productId,
+      salesChannel,
     } = args
 
     const params = {
@@ -41,6 +44,7 @@ export const queries = {
       name: name || 'other',
       productFormat: 'complete',
       productId,
+      salesChannel,
       source,
       url: `https://${forwardedHost}` + pathName,
     }
@@ -53,7 +57,7 @@ export const queries = {
 
 export const mutations = {
   ChaordicImpression: async (_: any, args: ImpressionParams, ctx: Context) => {
-    const {clients: {recommendation}} = ctx
+    const { clients: { recommendation } } = ctx
 
     return recommendation.impression(args.impressionUrl)
       .then(() => true)
