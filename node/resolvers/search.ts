@@ -7,9 +7,7 @@ import { utf8ToChar } from '../utf8'
 export const queries = {
   searchProducts: async (_: any, args: SearchParams, ctx: Context) => {
     const {clients: {search}} = ctx
-    const data = await search.search(args)
-    console.log(data)
-    return data
+    return search.search(args)
   },
 
   searchProductsAutoComplete: async (_: any, args: AutocompleteParams, ctx: Context) => {
