@@ -101,6 +101,7 @@ type ChaordicSearchProductDetailsHighLight {
 
 type ChaordicSearchProductImages {
   default: String
+  template: String
 }
 
 type ChaordicSearchProductInstallment {
