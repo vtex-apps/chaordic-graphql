@@ -1,4 +1,5 @@
 import { ExternalClient, InstanceOptions, IOContext, RequestConfig } from '@vtex/api'
+import { stringify } from 'qs'
 
 export interface SearchParams {
   filter: string
@@ -27,11 +28,12 @@ export default class Search extends ExternalClient {
   public secretKey?: string
 
   constructor(context: IOContext, options?: InstanceOptions) {
-    super(`https://api.linximpulse.com/engage/search/v3`, context, {
+    super(`http://api.linximpulse.com/engage/search/v3`, context, {
       ...options,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'X-Vtex-Use-Https': 'true',
       },
     })
   }
@@ -76,6 +78,7 @@ export default class Search extends ExternalClient {
     return this.http.get(url, {
       ...config,
       params,
+      paramsSerializer: oldParams => stringify(oldParams, { arrayFormat: 'repeat' }),
     }).catch(treatedErrors)
   }
 }
