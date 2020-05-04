@@ -67,11 +67,8 @@ type ChaordicProperties {
   status: String
   price: Float
   oldPrice: Float
-  installment: ChaordicSearchProductInstallment
-  images: ChaordicSearchProductImages
   details: ChaordicSearchProductDetails
-  url: String
-  created: String
+  name: String
 }
 
 
