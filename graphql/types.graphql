@@ -1,5 +1,9 @@
 scalar ChaordicSearchProductDetails
 
+scalar ChaordicTagParent
+
+scalar ChaordicSpecs
+
 scalar ChaordicRecommendationsSkuDetail
 
 scalar ChaordicRecommendationsSkuSpecs
@@ -46,6 +50,41 @@ type ChaordicSearchProduct {
   price: Float
   status: String
   url: String
+  categories: [ChaordicCategory]
+  tags: [ChaordicTag]
+  created: String
+  selectedSku: String
+  skus: [ChaordicSku]
+}
+
+interface ChaordicSku {
+  sku: String
+  specs: ChaordicSpecs
+  properties: ChaordicProperties
+}
+
+type ChaordicProperties {
+  status: String
+  price: Float
+  oldPrice: Float
+  installment: ChaordicSearchProductInstallment
+  images: ChaordicSearchProductImages
+  details: ChaordicSearchProductDetails
+  url: String
+  created: String
+}
+
+
+type ChaordicTag {
+  parents: [ChaordicTagParent]
+  id: String
+  name: String
+}
+
+type ChaordicCategory {
+  parents: [String]
+  id: String
+  name: String
 }
 
 type ChaordicSearchProductCollectionInfo {
