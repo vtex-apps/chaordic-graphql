@@ -3,9 +3,10 @@ type Query {
     terms: String = ""
     page: Int = 1
     salesChannel: String
-    sortBy: String = ""
-    filter: String = ""
-    resultsPerPage: Int = ""
+    sortBy: String
+    filter: [String]
+    productFormat: String
+    resultsPerPage: Int = 12
   ): ChaordicSearchOutput!
     @cacheControl(scope: PUBLIC, maxAge: SHORT)
     @withSecretKeys

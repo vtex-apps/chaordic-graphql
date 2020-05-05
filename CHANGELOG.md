@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Type of parameter `filter` of the `searchProducts` query from `String` to `[String]`.
+
+### Added
+- New parameter `productFormat` to `searchProducts` query.
+- New field `template` to `ChaordicSearchProductImages`.
+- New fields: `brand`, `categories`, `tags`, `created`, `selectedSku`, and `skus` to `ChaordicSearchProduct`.
+
+### Fixed
+- Search query error if `filter` param isn't filled
+- Use `X-Vtex-Use-Https` headers
 
 ## [1.0.0] - 2020-04-14
 ### Added
