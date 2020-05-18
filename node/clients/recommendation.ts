@@ -5,6 +5,7 @@ export interface RecommendationParams {
   deviceId?: string
   name: string
   salesChannel?: string
+  userId?: string
   pathName?: string
   productId: string
   productFormat?: string
