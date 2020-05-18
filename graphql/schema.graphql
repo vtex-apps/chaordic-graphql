@@ -25,6 +25,7 @@ type Query {
     chaordicBrowserId: String!
     pathName: String!
     source: String!
+    userId: String
     salesChannel: String
     name: String
     productId: String

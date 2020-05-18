@@ -35,6 +35,7 @@ export const queries = {
       pathName,
       source,
       name,
+      userId,
       productId,
       salesChannel,
     } = args
@@ -47,6 +48,7 @@ export const queries = {
       salesChannel,
       source,
       url: `https://${forwardedHost}` + pathName,
+      userId,
     }
 
     ctx.set('cache-control', 'no-cache')
