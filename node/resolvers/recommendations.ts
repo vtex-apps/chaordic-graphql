@@ -1,16 +1,20 @@
-import { ImpressionParams, ProductRecommendationParams, RecommendationParams } from '../clients/recommendation'
+import {
+  ImpressionParams,
+  ProductRecommendationParams,
+  RecommendationParams,
+} from '../clients/recommendation'
 
 export const queries = {
-  chaordicProductPageRecommendations: async (_: any, args: ProductRecommendationParams, ctx: Context) => {
-    const { clients: { recommendation } } = ctx
-
+  chaordicProductPageRecommendations: async (
+    _: any,
+    args: ProductRecommendationParams,
+    ctx: Context
+  ) => {
     const {
-      chaordicBrowserId,
-      productId,
-      type,
-      salesChannel,
-      size,
-    } = args
+      clients: { recommendation },
+    } = ctx
+
+    const { chaordicBrowserId, productId, type, salesChannel, size } = args
 
     const params = {
       deviceId: chaordicBrowserId,
@@ -26,14 +30,21 @@ export const queries = {
     return recommendation.productRecommendations(params)
   },
 
-  chaordicRecommendations: async (_: any, args: RecommendationParams, ctx: Context) => {
-    const { clients: { recommendation } } = ctx
+  chaordicRecommendations: async (
+    _: any,
+    args: RecommendationParams,
+    ctx: Context
+  ) => {
+    const {
+      clients: { recommendation },
+    } = ctx
     const forwardedHost = ctx.get('x-forwarded-host')
 
     const {
       chaordicBrowserId,
       pathName,
       source,
+      category,
       name,
       userId,
       productId,
@@ -46,6 +57,7 @@ export const queries = {
       productFormat: 'complete',
       productId,
       salesChannel,
+      category,
       source,
       url: `https://${forwardedHost}` + pathName,
       userId,
@@ -59,9 +71,12 @@ export const queries = {
 
 export const mutations = {
   ChaordicImpression: async (_: any, args: ImpressionParams, ctx: Context) => {
-    const { clients: { recommendation } } = ctx
+    const {
+      clients: { recommendation },
+    } = ctx
 
-    return recommendation.impression(args.impressionUrl)
+    return recommendation
+      .impression(args.impressionUrl)
       .then(() => true)
       .catch(() => false)
   },
