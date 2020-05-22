@@ -26,6 +26,7 @@ type Query {
     pathName: String!
     source: String!
     userId: String
+    category: [String]
     salesChannel: String
     name: String
     productId: String

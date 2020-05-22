@@ -1,4 +1,10 @@
-import { ExternalClient, InstanceOptions, IOContext, RequestConfig } from '@vtex/api'
+import {
+  ExternalClient,
+  InstanceOptions,
+  IOContext,
+  RequestConfig,
+} from '@vtex/api'
+import { stringify } from 'qs'
 
 export interface RecommendationParams {
   chaordicBrowserId?: string
@@ -7,6 +13,7 @@ export interface RecommendationParams {
   salesChannel?: string
   userId?: string
   pathName?: string
+  category?: string[]
   productId: string
   productFormat?: string
   source: string
@@ -16,13 +23,25 @@ export interface ProductRecommendationParams {
   chaordicBrowserId?: string
   deviceId?: string
   salesChannel?: string
-  productId: string,
+  productId: string
   size: number
-  type: string,
+  type: string
 }
 
 export interface ImpressionParams {
   impressionUrl: string
+}
+
+const treatedStatusCodes = [404, 302]
+const treatedErrors = (e: any) => {
+  if (
+    e.response &&
+    e.response.status &&
+    treatedStatusCodes.includes(e.response.status)
+  ) {
+    return e.response.data
+  }
+  throw e
 }
 
 export default class Recommendation extends ExternalClient {
@@ -33,7 +52,7 @@ export default class Recommendation extends ExternalClient {
     super('http://recs.chaordicsystems.com/v0', context, {
       ...options,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-vtex-use-https': 'true',
       },
@@ -47,15 +66,25 @@ export default class Recommendation extends ExternalClient {
   }
 
   public recommendations(params: RecommendationParams): Promise<any> {
-    return this.get(this.routes.recommendations, { metric: 'chaordic-recommendations', params })
+    return this.get(this.routes.recommendations, {
+      metric: 'chaordic-recommendations',
+      params,
+    })
   }
 
-  public productRecommendations(params: ProductRecommendationParams): Promise<any> {
-    return this.get(this.routes.recommendations, { metric: 'chaordic-recommendations-product', params })
+  public productRecommendations(
+    params: ProductRecommendationParams
+  ): Promise<any> {
+    return this.get(this.routes.recommendations, {
+      metric: 'chaordic-recommendations-product',
+      params,
+    })
   }
 
   public impression(impressionUrl: string): Promise<any> {
-    return this.get(impressionUrl, { metric: 'chaordic-recommendations-impression' })
+    return this.get(impressionUrl, {
+      metric: 'chaordic-recommendations-impression',
+    })
   }
 
   private get routes() {
@@ -65,9 +94,8 @@ export default class Recommendation extends ExternalClient {
   }
 
   private get(url: string, config?: RequestConfig) {
-
     const params = {
-      ...config && config.params,
+      ...config?.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
       ...(!this.context.production && {
@@ -76,9 +104,13 @@ export default class Recommendation extends ExternalClient {
       }),
     }
 
-    return this.http.get(url, {
-      ...config,
-      params,
-    })
+    return this.http
+      .get(url, {
+        ...config,
+        params,
+        paramsSerializer: oldParams =>
+          stringify(oldParams, { arrayFormat: 'repeat' }),
+      })
+      .catch(treatedErrors)
   }
 }
