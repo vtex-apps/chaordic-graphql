@@ -207,6 +207,7 @@ type ChaordicProductPageRecommendations {
 type ChaordicRecommendationsDisplays {
   references: [ChaordicProductPageRecommendationsProduct]!
   recommendations: [ChaordicProductPageRecommendationsProduct]!
+  refreshReferenceUrl: String
 }
 
 type ChaordicRecommendationsProduct {
