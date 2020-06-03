@@ -102,6 +102,7 @@ export default class Recommendation extends ExternalClient {
       ...(!this.context.production && {
         dummy: true,
         homologation: true,
+        showOnlyAvailable: false,
       }),
     }
 
