@@ -22,6 +22,7 @@ type Query {
     @withSecretKeys
 
   chaordicRecommendations(
+    showOnlyAvailable: Boolean = true
     chaordicBrowserId: String!
     pathName: String!
     source: String!

@@ -17,6 +17,7 @@ export interface RecommendationParams {
   productId: string
   productFormat?: string
   source: string
+  showOnlyAvailable: boolean
 }
 
 export interface ProductRecommendationParams {

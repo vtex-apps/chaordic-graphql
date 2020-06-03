@@ -49,15 +49,17 @@ export const queries = {
       userId,
       productId,
       salesChannel,
+      showOnlyAvailable
     } = args
 
     const params = {
+      category,
       deviceId: chaordicBrowserId,
       name: name || 'other',
       productFormat: 'complete',
       productId,
       salesChannel,
-      category,
+      showOnlyAvailable,
       source,
       url: `https://${forwardedHost}` + pathName,
       userId,
