@@ -17,6 +17,7 @@ export interface RecommendationParams {
   productId: string
   productFormat?: string
   source: string
+  showOnlyAvailable: boolean
 }
 
 export interface ProductRecommendationParams {
@@ -101,6 +102,7 @@ export default class Recommendation extends ExternalClient {
       ...(!this.context.production && {
         dummy: true,
         homologation: true,
+        showOnlyAvailable: false,
       }),
     }
 
