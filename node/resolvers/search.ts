@@ -1,54 +1,78 @@
-import { ResolverWarning } from '@vtex/api'
-import { prop, sortBy } from 'ramda'
+import { ResolverWarning } from "@vtex/api";
+import { prop, sortBy } from "ramda";
 
-import { AutocompleteParams, SearchParams } from '../clients/search'
-import { utf8ToChar } from '../utf8'
+import { AutocompleteParams, SearchParams } from "../clients/search";
+import { utf8ToChar } from "../utf8";
+import { atob, formatSalesChannel } from "./recommendations";
 
 export const queries = {
   searchProducts: async (_: any, args: SearchParams, ctx: Context) => {
-    const {clients: {search}} = ctx
-    return search.search(args)
+    const {
+      clients: { search }
+    } = ctx;
+    return search.search({
+      ...args,
+      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken)))
+    });
   },
 
-  searchProductsAutoComplete: async (_: any, args: AutocompleteParams, ctx: Context) => {
-    const {clients: {search}} = ctx
-    return search.autocomplete(args)
+  searchProductsAutoComplete: async (
+    _: any,
+    args: AutocompleteParams,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search }
+    } = ctx;
+    return search.autocomplete({
+      ...args,
+      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken)))
+    });
   },
 
   searchProductsAutoCompletePopular: async (_: any, __: any, ctx: Context) => {
-    const {clients: {search}} = ctx
-    return search.popular()
-  },
-}
+    const {
+      clients: { search }
+    } = ctx;
+    return search.popular();
+  }
+};
 
 export const rootResolvers = {
   ChaordicSearchFilters: {
-    values: ({values}: any) => values && sortBy(prop('id') as any, values),
+    values: ({ values }: any) => values && sortBy(prop("id") as any, values)
   },
   ChaordicSearchProduct: {
-    cacheId: ({id, name}: any) => `${id} - ${name}`,
-    productId: ({id}: any) => id,
+    cacheId: ({ id, name }: any) => `${id} - ${name}`,
+    productId: ({ id }: any) => id
   },
   ChaordicSearchProductDetails: {
-    clusterHighlights: ({clusterHighlights}: any) => {
-      let clusterHighlightsFormatted = []
+    clusterHighlights: ({ clusterHighlights }: any) => {
+      let clusterHighlightsFormatted = [];
       try {
-        clusterHighlightsFormatted = clusterHighlights.map((clusterHighlight: string) => {
-          let clusterHighlightDecoded = clusterHighlight
+        clusterHighlightsFormatted = clusterHighlights.map(
+          (clusterHighlight: string) => {
+            let clusterHighlightDecoded = clusterHighlight;
 
-          Object.keys(utf8ToChar).forEach((key: string) => {
-            clusterHighlightDecoded = clusterHighlightDecoded.replace(new RegExp(key, 'g'), utf8ToChar[key])
-          })
+            Object.keys(utf8ToChar).forEach((key: string) => {
+              clusterHighlightDecoded = clusterHighlightDecoded.replace(
+                new RegExp(key, "g"),
+                utf8ToChar[key]
+              );
+            });
 
-          return {
-            'name': Object.values( JSON.parse(clusterHighlightDecoded.replace(/'/g, '"')) )[0],
+            return {
+              name: Object.values(
+                JSON.parse(clusterHighlightDecoded.replace(/'/g, '"'))
+              )[0]
+            };
           }
-        })
-      } catch(e) {
-        throw new ResolverWarning(e)
+        );
+      } catch (e) {
+        throw new ResolverWarning(e);
       }
 
-      return clusterHighlightsFormatted
-    },
-  },
-}
+      return clusterHighlightsFormatted;
+    }
+  }
+};
