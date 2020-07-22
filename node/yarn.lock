@@ -1800,6 +1800,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+"vtex.chaordic-graphql@https://gus--carrefourbrfood.myvtex.com/_v/private/typings/linked/v1/vtex.chaordic-graphql@2.3.0+build1595443525/public/@types/vtex.chaordic-graphql":
+  version "2.3.0"
+  resolved "https://gus--carrefourbrfood.myvtex.com/_v/private/typings/linked/v1/vtex.chaordic-graphql@2.3.0+build1595443525/public/@types/vtex.chaordic-graphql#21199169d1c21c874308ad5533a628ff2b5c34b9"
+
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
