@@ -1,19 +1,19 @@
-import { ResolverWarning } from "@vtex/api";
-import { prop, sortBy } from "ramda";
+import { ResolverWarning } from '@vtex/api'
+import { prop, sortBy } from 'ramda'
 
-import { AutocompleteParams, SearchParams } from "../clients/search";
-import { utf8ToChar } from "../utf8";
-import { atob, formatSalesChannel } from "./recommendations";
+import { AutocompleteParams, SearchParams } from '../clients/search'
+import { utf8ToChar } from '../utf8'
+import { formatSalesChannel, atob } from '../utils'
 
 export const queries = {
   searchProducts: async (_: any, args: SearchParams, ctx: Context) => {
     const {
-      clients: { search }
-    } = ctx;
+      clients: { search },
+    } = ctx
     return search.search({
       ...args,
-      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken)))
-    });
+      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken))),
+    })
   },
 
   searchProductsAutoComplete: async (
@@ -22,57 +22,57 @@ export const queries = {
     ctx: Context
   ) => {
     const {
-      clients: { search }
-    } = ctx;
+      clients: { search },
+    } = ctx
     return search.autocomplete({
       ...args,
-      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken)))
-    });
+      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken))),
+    })
   },
 
   searchProductsAutoCompletePopular: async (_: any, __: any, ctx: Context) => {
     const {
-      clients: { search }
-    } = ctx;
-    return search.popular();
-  }
-};
+      clients: { search },
+    } = ctx
+    return search.popular()
+  },
+}
 
 export const rootResolvers = {
   ChaordicSearchFilters: {
-    values: ({ values }: any) => values && sortBy(prop("id") as any, values)
+    values: ({ values }: any) => values && sortBy(prop('id') as any, values),
   },
   ChaordicSearchProduct: {
     cacheId: ({ id, name }: any) => `${id} - ${name}`,
-    productId: ({ id }: any) => id
+    productId: ({ id }: any) => id,
   },
   ChaordicSearchProductDetails: {
     clusterHighlights: ({ clusterHighlights }: any) => {
-      let clusterHighlightsFormatted = [];
+      let clusterHighlightsFormatted = []
       try {
         clusterHighlightsFormatted = clusterHighlights.map(
           (clusterHighlight: string) => {
-            let clusterHighlightDecoded = clusterHighlight;
+            let clusterHighlightDecoded = clusterHighlight
 
             Object.keys(utf8ToChar).forEach((key: string) => {
               clusterHighlightDecoded = clusterHighlightDecoded.replace(
-                new RegExp(key, "g"),
+                new RegExp(key, 'g'),
                 utf8ToChar[key]
-              );
-            });
+              )
+            })
 
             return {
               name: Object.values(
                 JSON.parse(clusterHighlightDecoded.replace(/'/g, '"'))
-              )[0]
-            };
+              )[0],
+            }
           }
-        );
+        )
       } catch (e) {
-        throw new ResolverWarning(e);
+        throw new ResolverWarning(e)
       }
 
-      return clusterHighlightsFormatted;
-    }
-  }
-};
+      return clusterHighlightsFormatted
+    },
+  },
+}
