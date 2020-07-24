@@ -65,7 +65,7 @@ export default class Search extends ExternalClient {
   }
 
   public popular(): Promise<any> {
-    return this.get(this.routes.popular, { metric: 'chaordic-popular' })
+    return this.get(this.routes.popular, { metric: 'chaordic-popularq' })
   }
 
   private get routes() {
