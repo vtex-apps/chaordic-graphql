@@ -1,4 +1,9 @@
-import { ExternalClient, InstanceOptions, IOContext, RequestConfig } from '@vtex/api'
+import {
+  ExternalClient,
+  InstanceOptions,
+  IOContext,
+  RequestConfig,
+} from '@vtex/api'
 import { stringify } from 'qs'
 
 export interface SearchParams {
@@ -17,7 +22,11 @@ export interface AutocompleteParams {
 
 const treatedStatusCodes = [404, 302]
 const treatedErrors = (e: any) => {
-  if (e.response && e.response.status && treatedStatusCodes.includes(e.response.status)) {
+  if (
+    e.response &&
+    e.response.status &&
+    treatedStatusCodes.includes(e.response.status)
+  ) {
     return e.response.data
   }
   throw e
@@ -31,7 +40,7 @@ export default class Search extends ExternalClient {
     super(`http://api.linximpulse.com/engage/search/v3`, context, {
       ...options,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Vtex-Use-Https': 'true',
       },
@@ -49,7 +58,10 @@ export default class Search extends ExternalClient {
   }
 
   public autocomplete(params: AutocompleteParams): Promise<any> {
-    return this.get(this.routes.autocomplete, { metric: 'chaordic-autocomplete', params })
+    return this.get(this.routes.autocomplete, {
+      metric: 'chaordic-autocomplete',
+      params,
+    })
   }
 
   public popular(): Promise<any> {
@@ -66,19 +78,18 @@ export default class Search extends ExternalClient {
 
   private get(url: string, config?: RequestConfig) {
     const params = {
-      ...config && config.params,
+      ...config?.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
-      ...(!this.context.production && {
-        dummy: true,
-        homologation: true,
-      }),
     }
 
-    return this.http.get(url, {
-      ...config,
-      params,
-      paramsSerializer: oldParams => stringify(oldParams, { arrayFormat: 'repeat' }),
-    }).catch(treatedErrors)
+    return this.http
+      .get(url, {
+        ...config,
+        params,
+        paramsSerializer: oldParams =>
+          stringify(oldParams, { arrayFormat: 'repeat' }),
+      })
+      .catch(treatedErrors)
   }
 }

@@ -99,11 +99,6 @@ export default class Recommendation extends ExternalClient {
       ...config?.params,
       apiKey: this.apiKey,
       secretKey: this.secretKey,
-      ...(!this.context.production && {
-        dummy: true,
-        homologation: true,
-        showOnlyAvailable: false,
-      }),
     }
 
     return this.http

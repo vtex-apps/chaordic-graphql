@@ -8,14 +8,14 @@ type Query {
     productFormat: String
     resultsPerPage: Int = 12
   ): ChaordicSearchOutput!
-    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @cacheControl(scope: SEGMENT, maxAge: SHORT)
     @withSecretKeys
 
   searchProductsAutoComplete(
     salesChannel: String
     terms: String = ""
   ): ChaordicSearchAutoCompleteOutput!
-    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @cacheControl(scope: SEGMENT, maxAge: SHORT)
     @withSecretKeys
 
   searchProductsAutoCompletePopular: ChaordicSearchAutoCompletePopularOutput!
@@ -32,7 +32,7 @@ type Query {
     name: String
     productId: String
   ): ChaordicRecommendationsResult!
-    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @cacheControl(scope: SEGMENT, maxAge: SHORT)
     @withSecretKeys
 
   chaordicProductPageRecommendations(
@@ -42,7 +42,7 @@ type Query {
     type: String
     size: Int
   ): ChaordicProductPageRecommendations!
-    @cacheControl(scope: PUBLIC, maxAge: SHORT)
+    @cacheControl(scope: SEGMENT, maxAge: SHORT)
     @withSecretKeys
 }
 

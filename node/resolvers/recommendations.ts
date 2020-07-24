@@ -3,6 +3,7 @@ import {
   ProductRecommendationParams,
   RecommendationParams,
 } from '../clients/recommendation'
+import { formatSalesChannel, atob } from '../utils'
 
 export const queries = {
   chaordicProductPageRecommendations: async (
@@ -14,13 +15,13 @@ export const queries = {
       clients: { recommendation },
     } = ctx
 
-    const { chaordicBrowserId, productId, type, salesChannel, size } = args
+    const { chaordicBrowserId, productId, type, size } = args
 
     const params = {
       deviceId: chaordicBrowserId,
       productFormat: 'complete',
       productId,
-      salesChannel,
+      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken))),
       size: size || 10,
       type: type || 'BestSellers',
     }
@@ -48,8 +49,7 @@ export const queries = {
       name,
       userId,
       productId,
-      salesChannel,
-      showOnlyAvailable
+      showOnlyAvailable,
     } = args
 
     const params = {
@@ -58,10 +58,10 @@ export const queries = {
       name: name || 'other',
       productFormat: 'complete',
       productId,
-      salesChannel,
+      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken))),
       showOnlyAvailable,
       source,
-      url: `https://${forwardedHost}` + pathName,
+      url: `https://${forwardedHost}${pathName}`,
       userId,
     }
 
