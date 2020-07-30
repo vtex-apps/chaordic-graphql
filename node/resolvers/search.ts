@@ -10,9 +10,12 @@ export const queries = {
     const {
       clients: { search },
     } = ctx
+
     return search.search({
       ...args,
-      salesChannel: formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken))),
+      salesChannel:
+        args.salesChannel ??
+        formatSalesChannel(JSON.parse(atob(ctx.vtex.segmentToken))),
     })
   },
 
