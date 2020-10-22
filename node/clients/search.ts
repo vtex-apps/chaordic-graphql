@@ -20,6 +20,17 @@ export interface AutocompleteParams {
   salesChannel?: string
 }
 
+export interface NavigatesParams {
+  resultsPerPage: number
+  sortBy: string
+  filter: string
+  page: number
+  productFormat: string
+  fields: string
+  category: string
+  multicategory: string[]
+}
+
 const treatedStatusCodes = [404, 302]
 const treatedErrors = (e: any) => {
   if (
@@ -68,11 +79,19 @@ export default class Search extends ExternalClient {
     return this.get(this.routes.popular, { metric: 'chaordic-popular' })
   }
 
+  public navigates(params: NavigatesParams): Promise<any> {
+    return this.get(this.routes.navigates, {
+      metric: 'chaordic-navigates',
+      params,
+    })
+  }
+
   private get routes() {
     return {
       autocomplete: '/autocompletes',
       popular: '/autocompletes/popular',
       search: '/search',
+      navigates: '/navigates',
     }
   }
 

@@ -1,7 +1,11 @@
 import { ResolverWarning } from '@vtex/api'
 import { prop, sortBy } from 'ramda'
 
-import { AutocompleteParams, SearchParams } from '../clients/search'
+import {
+  AutocompleteParams,
+  SearchParams,
+  NavigatesParams,
+} from '../clients/search'
 import { utf8ToChar } from '../utf8'
 import { formatSalesChannel, atob } from '../utils'
 
@@ -38,6 +42,38 @@ export const queries = {
       clients: { search },
     } = ctx
     return search.popular()
+  },
+
+  searchProductsNavigates: async (
+    _: any,
+    args: NavigatesParams,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    const { fields, category, multicategory } = args
+
+    if (fields && (category || multicategory?.length)) {
+      throw new Error(
+        'The field "fields" cannot be used together with the category or multicategory field'
+      )
+      /*
+       * read more about this rule in the documentation: https://docs.linximpulse.com/v3-search/docs/navigate
+       */
+    }
+
+    if (category && multicategory?.length) {
+      throw new Error(
+        'The category and multicategory fields cannot be used together'
+      )
+      /*
+       * read more about this rule in the documentation: https://docs.linximpulse.com/v3-search/docs/navigate
+       */
+    }
+
+    return search.navigates(args)
   },
 }
 

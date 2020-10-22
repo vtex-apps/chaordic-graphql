@@ -44,6 +44,17 @@ type Query {
   ): ChaordicProductPageRecommendations!
     @cacheControl(scope: SEGMENT, maxAge: SHORT)
     @withSecretKeys
+
+   searchProductsNavigates(
+    fields: String,
+    category: String,
+    multicategory: [String],
+    page: Int = 1,
+    resultsPerPage: Int = 10,
+    sortBy: String = "relevance",
+    filter: String
+  ): ChaordicNavigatesOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+
 }
 
 type Mutation {
