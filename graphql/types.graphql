@@ -294,3 +294,21 @@ type ChaordicRecommendationsProductSkus {
   sku: String
   specs: ChaordicRecommendationsSkuSpecs
 }
+
+type ChaordicSort {
+  label: String
+  name: String
+  type: String
+  applyLink: String
+}
+
+type ChaordicNavigatesOutput {
+  requestId: String
+  searchId: String
+  size: Int
+  name: String
+  sort: [ChaordicSort]
+  products: [ChaordicSearchProduct]
+  pagination: ChaordicSearchPagination
+  filters: [ChaordicSearchFilters]
+}
