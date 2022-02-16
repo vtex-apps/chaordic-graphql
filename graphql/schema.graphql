@@ -55,6 +55,15 @@ type Query {
     filter: String
   ): ChaordicNavigatesOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
 
+  searchProductsHotsites(
+    fields: String,
+    name: String,
+    page: Int = 1,
+    resultsPerPage: Int = 10,
+    sortBy: String = "relevance",
+    filter: String
+  ): ChaordicHotsitesOutput! @cacheControl(scope: PUBLIC, maxAge: SHORT) @withSecretKeys
+
 }
 
 type Mutation {

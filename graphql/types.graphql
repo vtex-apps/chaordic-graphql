@@ -17,6 +17,7 @@ type ChaordicSearchOutput {
   pagination: ChaordicSearchPagination
   filters: [ChaordicSearchFilters]
   queries: ChaordicSearchQueries
+  suggestions: [ChaordicSuggestions]
   requestId: String
   searchId: String
   size: Int
@@ -311,4 +312,29 @@ type ChaordicNavigatesOutput {
   products: [ChaordicSearchProduct]
   pagination: ChaordicSearchPagination
   filters: [ChaordicSearchFilters]
+}
+
+type ChaordicHotsite {
+  title: String
+  sortRule: String
+  description: String
+}
+
+type ChaordicSuggestions {
+  query: String
+  link: String
+}
+
+type ChaordicHotsitesOutput {
+  requestId: String
+  searchId: String
+  size: Int
+  name: String
+  sort: [ChaordicSort]
+  products: [ChaordicSearchProduct]
+  pagination: ChaordicSearchPagination
+  filters: [ChaordicSearchFilters]
+  hotsite: ChaordicHotsite
+  suggestions: [ChaordicSuggestions]
+  banners: [ChaordicSearchBanner]
 }
