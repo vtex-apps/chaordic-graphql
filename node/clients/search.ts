@@ -31,6 +31,14 @@ export interface NavigatesParams {
   multicategory: string[]
 }
 
+export interface HotsitesParams {
+  filter: string
+  page: number
+  resultsPerPage: number
+  sortBy: string
+  name: string
+}
+
 const treatedStatusCodes = [404, 302]
 const treatedErrors = (e: any) => {
   if (
@@ -86,12 +94,20 @@ export default class Search extends ExternalClient {
     })
   }
 
+  public hotsites(params: HotsitesParams): Promise<any> {
+    return this.get(this.routes.hotsites, {
+      metric: 'chaordic-hotsites',
+      params,
+    })
+  }
+
   private get routes() {
     return {
       autocomplete: '/autocompletes',
       popular: '/autocompletes/popular',
       search: '/search',
       navigates: '/navigates',
+      hotsites: '/hotsites',
     }
   }
 

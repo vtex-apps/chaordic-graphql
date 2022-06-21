@@ -5,6 +5,7 @@ import {
   AutocompleteParams,
   SearchParams,
   NavigatesParams,
+  HotsitesParams,
 } from '../clients/search'
 import { utf8ToChar } from '../utf8'
 import { formatSalesChannel, atob } from '../utils'
@@ -74,6 +75,18 @@ export const queries = {
     }
 
     return search.navigates(args)
+  },
+
+  searchProductsHotsites: async (
+    _: any,
+    args: HotsitesParams,
+    ctx: Context
+  ) => {
+    const {
+      clients: { search },
+    } = ctx
+
+    return search.hotsites(args)
   },
 }
 
